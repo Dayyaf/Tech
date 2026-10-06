@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ضياف | ذكاء الضيافة</title>
+<meta name="description" content="ضياف يقرأ من أنظمة فندقك الحالية ويضع أمامك أرقام أمس مطابقة كل صباح. بدون تغيير أنظمتك وبدون إدخال يدوي.">
+<meta property="og:title" content="ضياف | Dhiyaf">
+<meta property="og:description" content="Know where your hotel stands. Every morning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Lato:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17120f; --card:#2b2420; --cream:#f9f6f1; --beige:#efe9df; --line:#e2dacd;
+  --gold:#b8892e; --gold2:#d9ae52; --teal:#1c5b5a; --muted:#6b625a; --white:#fff;
+  --head:"Source Serif 4","IBM Plex Sans Arabic",Georgia,serif;
+  --body:"Lato","IBM Plex Sans Arabic",Arial,sans-serif;
+}
+html[lang="ar"]{--head:"IBM Plex Sans Arabic",Tahoma,sans-serif;--body:"IBM Plex Sans Arabic",Tahoma,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+html[lang="ar"] .en,html[lang="en"] .ar{display:none!important}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.25}
+h1{font-size:clamp(34px,6vw,60px)}
+h2{font-size:clamp(26px,4vw,40px);margin-bottom:14px}
+h3{font-size:20px;margin-bottom:6px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+html[lang="ar"] .kicker{letter-spacing:0;font-size:14px}
+.lead{font-size:19px;color:var(--muted);max-width:640px}
+section{padding:84px 0}
+.btn{display:inline-block;padding:14px 26px;font-weight:700;font-family:var(--body);font-size:16px;border:1px solid var(--gold2);cursor:pointer;transition:.2s}
+.btn.primary{background:var(--gold2);color:var(--ink)}
+.btn.primary:hover{background:#e6bf6a}
+.btn.ghost{background:transparent;color:var(--gold2)}
+.btn.ghost:hover{background:rgba(217,174,82,.12)}
+.btn.dark{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* nav */
+header{position:sticky;top:0;z-index:20;background:rgba(23,18,15,.96);color:var(--white)}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:baseline;gap:10px;font-family:var(--head)}
+.brand b{font-size:26px;color:var(--gold2);font-family:"IBM Plex Sans Arabic",sans-serif}
+.brand span{font-size:17px;letter-spacing:.04em}
+.navlinks{display:flex;gap:26px;font-size:15px;color:#d8d0c4}
+.navlinks a:hover{color:var(--gold2)}
+.navright{display:flex;align-items:center;gap:12px}
+.lang{background:none;border:1px solid #5a5048;color:var(--white);padding:7px 14px;font-size:14px;cursor:pointer;font-family:inherit}
+nav .btn{padding:9px 18px;font-size:14px}
+@media(max-width:860px){.navlinks{display:none}}
+@media(max-width:480px){nav .btn{display:none}}
+
+/* hero */
+.hero{background:var(--ink);color:var(--white);padding:76px 0 90px}
+.hero .grid{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+.hero p.sub{font-size:20px;color:#d8d0c4;margin:22px 0 14px;max-width:600px}
+.hero p.fine{font-size:15px;color:#a39a8e;margin-bottom:30px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.phone{width:290px;max-width:100%;margin:0 auto;border:8px solid #4a4039;border-radius:38px;background:#100c0a;padding:34px 16px 30px;min-height:470px}
+.phone .date{text-align:center;color:#a39a8e;font-size:14px}
+.phone .time{text-align:center;font-size:72px;font-weight:700;line-height:1.1;margin-bottom:26px;font-family:"Lato",sans-serif}
+.note{background:#3a322d;border-radius:16px;padding:14px 16px;margin-bottom:12px;font-size:14px;line-height:1.6}
+.note small{display:flex;justify-content:space-between;color:#a39a8e;font-size:12px;margin-bottom:4px}
+.note b{display:block;margin-bottom:2px}
+.phone .ex{text-align:center;font-size:11px;color:#7d746a;margin-top:18px}
+@media(max-width:860px){.hero .grid{grid-template-columns:1fr}}
+
+/* problem */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:32px}}
+.chat{background:var(--beige);border:1px solid var(--line);padding:22px;max-width:420px}
+.msg{background:var(--white);padding:10px 14px;border-radius:12px;margin-bottom:10px;font-size:15px;max-width:85%}
+.msg.me{background:#dcefd8;margin-inline-start:auto}
+.msg small{display:block;color:var(--muted);font-size:12px}
+.msg em{font-style:normal;color:var(--gold);font-weight:700;font-size:13px;display:block}
+.chat .ex{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* cards */
+.cards{display:grid;gap:18px;margin-top:38px}
+.c4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:repeat(3,1fr)}.c2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.c4{grid-template-columns:repeat(2,1fr)}.c3{grid-template-columns:1fr}}
+@media(max-width:560px){.c4,.c2{grid-template-columns:1fr}}
+.card{background:var(--white);border:1px solid var(--line);padding:26px}
+.card p{color:var(--muted);font-size:16px}
+.num{width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:14px;font-family:"Lato",sans-serif}
+.dark{background:var(--ink);color:var(--white)}
+.dark .lead,.dark .card p{color:#cfc6b9}
+.dark .card{background:var(--card);border-color:#3a322d}
+.dark .kicker{color:var(--gold2)}
+.band{background:var(--beige)}
+
+/* systems diagram */
+.stack{margin-top:38px;display:grid;gap:14px}
+.row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.pill{background:var(--white);border:1px solid var(--line);padding:14px;text-align:center;font-weight:700;font-size:15px}
+.pill small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.core{background:var(--ink);color:var(--white);padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.core b{font-size:26px;color:var(--gold2)}
+.core span{font-size:14px;letter-spacing:.1em;color:#cfc6b9}
+.arrow{text-align:center;color:var(--gold);font-size:14px}
+@media(max-width:640px){.row{grid-template-columns:repeat(2,1fr)}}
+
+/* pilot */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:38px}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.steps div{border-top:2px solid var(--gold);padding-top:14px}
+.steps b{display:block;font-family:var(--head);font-size:18px}
+.steps span{color:var(--muted);font-size:15px}
+
+/* pricing */
+.price{font-family:"Source Serif 4","Lato",serif;font-size:46px;line-height:1.1;margin:10px 0 2px}
+.per{font-size:13px;color:var(--muted);margin-bottom:16px}
+.card.hi{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.card.hi .per,.card.hi li{color:#cfc6b9}
+.card ul{list-style:none;font-size:15px;color:var(--muted)}
+.card li{padding:5px 0;border-top:1px solid rgba(128,118,105,.25)}
+.tag{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--gold)}
+html[lang="ar"] .tag{letter-spacing:0;font-size:14px}
+.fine{font-size:14px;color:var(--muted);margin-top:18px}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-family:var(--head);font-size:19px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--gold);font-size:22px}
+details[open] summary::after{content:"\2212"}
+details p{color:var(--muted);margin-top:10px;max-width:760px}
+
+/* form */
+form{display:grid;gap:12px;max-width:460px}
+input,select{padding:14px;font-size:16px;font-family:inherit;border:1px solid #5a5048;background:#221b17;color:var(--white);width:100%}
+input::placeholder{color:#8d8378}
+footer{background:#100c0a;color:#8d8378;padding:28px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.feat .card ul{margin-top:8px}.feat .card li{font-size:14.5px;line-height:1.55;padding:7px 0}
+.subhead{margin-top:56px;font-size:24px}.card.hi p{color:#cfc6b9}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}.chips>span{border:1px solid var(--gold);color:var(--ink);padding:8px 16px;font-size:14px;font-weight:700;background:var(--white)}
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+  EDIT THESE BEFORE PUBLISHING
+  1. WHATSAPP: the business number that receives enquiries (digits only, with 966).
+  2. EMAIL: the enquiry address shown in the footer.
+  3. Prices in the pricing section are the recommended list. Change them once
+     the founders agree one price list.
+====================================================================== -->
+<script>
+const CONFIG = {
+  WHATSAPP: "966555542224",
+  EMAIL: "ahmad.sabbagh@dhiyaf.com"
+};
+</script>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top"><b>ضياف</b><span>Dhiyaf</span></a>
+      <div class="navlinks">
+        <a href="#how"><span class="ar">كيف يعمل</span><span class="en">How it works</span></a>
+        <a href="#roles"><span class="ar">المنصة</span><span class="en">Platform</span></a>
+        <a href="#pilot"><span class="ar">التجربة</span><span class="en">The pilot</span></a>
+        <a href="#pricing"><span class="ar">الأسعار</span><span class="en">Pricing</span></a>
+        <a href="#faq"><span class="ar">الأسئلة</span><span class="en">FAQ</span></a>
+      </div>
+      <div class="navright">
+        <button class="lang" id="langBtn" type="button">English</button>
+        <a class="btn primary" href="#contact"><span class="ar">احجز عرضاً</span><span class="en">Book a walk through</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- 1 HERO -->
+<section class="hero" id="top">
+  <div class="wrap grid">
+    <div>
+      <p class="kicker"><span class="ar">ذكاء الضيافة</span><span class="en">The intelligence of hospitality</span></p>
+      <h1><span class="ar">اعرف وضع فندقك.<br>كل صباح.</span><span class="en">Know where your hotel stands. Every morning.</span></h1>
+      <p class="sub">
+        <span class="ar">ضياف يقرأ من نظام الفندق ونقاط البيع والمحاسبة، ويضع أمامك أرقام أمس مطابقة قبل الساعة&nbsp;7:00، لكل فنادقك. بدون تغيير أنظمتك، وبدون إدخال يدوي.</span>
+        <span class="en">Dhiyaf reads your PMS, point of sale and accounts and gives you yesterday's reconciled numbers by 7:00, for every property you own. Nothing replaced. Nothing re entered.</span>
+      </p>
+      <p class="fine">
+        <span class="ar">لملاك ومشغلي الفنادق في المملكة. بالعربية والإنجليزية. بياناتك داخل المملكة.</span>
+        <span class="en">For hotel owners and operators in Saudi Arabia. Arabic and English. Data held in the Kingdom.</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#contact"><span class="ar">شاهده على أرقام فندقك</span><span class="en">See it on your own data</span></a>
+        <a class="btn ghost" href="#how"><span class="ar">كيف يعمل</span><span class="en">How it works</span></a>
+      </div>
+    </div>
+    <div class="phone" aria-hidden="true">
+      <div class="date"><span class="ar">الأحد</span><span class="en">Sunday</span></div>
+      <div class="time">7:00</div>
+      <div class="note">
+        <small><span>ضياف</span><span><span class="ar">الآن</span><span class="en">now</span></span></small>
+        <b><span class="ar">صباح الخير</span><span class="en">Good morning</span></b>
+        <span class="ar">إيراد أمس: 48,200&nbsp;ريال. الإشغال 71%. المطعم مطابق.</span>
+        <span class="en">Yesterday: SAR 48,200. Occupancy 71%. Restaurant reconciled.</span>
+      </div>
+      <div class="note">
+        <small><span>ضياف</span><span><span class="ar">الآن</span><span class="en">now</span></span></small>
+        <b><span class="ar">يحتاج قراراً اليوم</span><span class="en">Needs a decision today</span></b>
+        <span class="ar">6&nbsp;غرف خارج الخدمة منذ 3&nbsp;أيام.</span>
+        <span class="en">6 rooms out of service for 3 days.</span>
+      </div>
+      <div class="ex"><span class="ar">أرقام توضيحية</span><span class="en">Illustrative figures</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section>
+  <div class="wrap split">
+    <div>
+      <p class="kicker"><span class="ar">المشكلة</span><span class="en">The problem</span></p>
+      <h2><span class="ar">«كم دخلنا أمس؟»</span><span class="en">"How much did we make yesterday?"</span></h2>
+      <p class="lead" style="margin-bottom:16px">
+        <span class="ar">سؤال بسيط الساعة&nbsp;7:00. وفي أغلب الفنادق يوصل الجواب بعد الظهر.</span>
+        <span class="en">A simple question at 7:00. In most hotels, the answer arrives after midday.</span>
+      </p>
+      <p>
+        <span class="ar">فندقك ينتج كل رقم تحتاجه. الحجوزات في نظام الفندق، ومبيعات المطعم في نقاط البيع، والتكاليف في المحاسبة، وبينها ملف Excel يحاول أن يجمعها. فيصير التقرير اليومي وظيفة ثانية، ويُقفل الشهر بعد أن يبدأ الذي بعده، ويُبنى سعر الليلة على أرقام الشهر الماضي.</span>
+        <span class="en">Your hotel already produces every number it needs. Reservations sit in the PMS. Outlet takings sit in the point of sale. Costs sit in accounting. And somewhere, a spreadsheet tries to hold them together. So the daily report becomes somebody's second job, the month closes after the next one has begun, and tonight's rate is set on last month's figures.</span>
+      </p>
+    </div>
+    <div class="chat">
+      <div class="msg me"><em><span class="ar">المالك</span><span class="en">Owner</span></em><span class="ar">صباح الخير، كم دخلنا أمس؟</span><span class="en">Good morning, how much did we make yesterday?</span><small>7:00</small></div>
+      <div class="msg"><em><span class="ar">المدير العام</span><span class="en">General Manager</span></em><span class="ar">أجمع الأرقام من الاستقبال والمطعم وأرد عليك</span><span class="en">Collecting the numbers from front desk and the restaurant</span><small>7:18</small></div>
+      <div class="msg"><em><span class="ar">المالية</span><span class="en">Finance</span></em>daily_report.xlsx<br><span class="ar">مسودة، المطعم غير مطابق بعد</span><span class="en">Draft, restaurant not reconciled yet</span><small>12:24</small></div>
+      <div class="msg me"><em><span class="ar">المالك</span><span class="en">Owner</span></em><span class="ar">الملف ما ينفتح في الجوال</span><span class="en">The file will not open on my phone</span><small>12:31</small></div>
+      <div class="ex"><span class="ar">قصة توضيحية تتكرر في فنادق كثيرة</span><span class="en">An illustrative story, familiar in many hotels</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 HOW IT WORKS -->
+<section class="band" id="how">
+  <div class="wrap">
+    <p class="kicker"><span class="ar">كيف يعمل</span><span class="en">How it works</span></p>
+    <h2><span class="ar">يقرأ ولا يستبدل.</span><span class="en">It reads. It does not replace.</span></h2>
+    <p class="lead"><span class="ar">أنظمتك تبقى كما هي.</span><span class="en">Your systems stay exactly where they are.</span></p>
+
+    <div class="stack">
+      <div class="row">
+        <div class="pill"><span class="ar">المالك والمدير العام</span><span class="en">Owner and GM</span></div>
+        <div class="pill"><span class="ar">المالية</span><span class="en">Finance</span></div>
+        <div class="pill"><span class="ar">الإيرادات</span><span class="en">Revenue</span></div>
+        <div class="pill"><span class="ar">التشغيل</span><span class="en">Operations</span></div>
+      </div>
+      <div class="arrow">&#9650;</div>
+      <div class="core"><b>ضياف</b><span><span class="ar">يقرأ · يوحّد · يشرح · ينبّه</span><span class="en">READS · UNIFIES · ADVISES · ALERTS</span></span></div>
+      <div class="arrow">&#9650; <span class="ar">قراءة فقط</span><span class="en">read only</span></div>
+      <div class="row">
+        <div class="pill"><span class="ar">نظام إدارة الفندق</span><span class="en">Property management</span><small><span class="ar">بدون تغيير</span><span class="en">unchanged</span></small></div>
+        <div class="pill"><span class="ar">نقاط البيع</span><span class="en">Point of sale</span><small><span class="ar">بدون تغيير</span><span class="en">unchanged</span></small></div>
+        <div class="pill"><span class="ar">مدير القنوات</span><span class="en">Channel manager</span><small><span class="ar">بدون تغيير</span><span class="en">unchanged</span></small></div>
+        <div class="pill"><span class="ar">المحاسبة</span><span class="en">Accounting</span><small><span class="ar">بدون تغيير</span><span class="en">unchanged</span></small></div>
+      </div>
+    </div>
+
+    <div class="cards c4">
+      <div class="card"><div class="num">1</div><h3><span class="ar">يربط</span><span class="en">Connect</span></h3><p><span class="ar">قراءة فقط من نظام الفندق والمحاسبة. بدون نقل بيانات وبدون إدخال.</span><span class="en">Read only connectors to your PMS and ledger. No migration, no data entry.</span></p></div>
+      <div class="card"><div class="num">2</div><h3><span class="ar">يوحّد</span><span class="en">Unify</span></h3><p><span class="ar">الضيوف والحجوزات والعمليات في سجل واحد.</span><span class="en">Guests, reservations and transactions resolved into one record.</span></p></div>
+      <div class="card"><div class="num">3</div><h3><span class="ar">يشرح</span><span class="en">Advise</span></h3><p><span class="ar">توقعات وصورة يومية مبنية على أرقامك، مع بيان السبب.</span><span class="en">A forecast and daily position built on your own history, with the reasoning shown.</span></p></div>
+      <div class="card"><div class="num">4</div><h3><span class="ar">ينبّه</span><span class="en">Alert</span></h3><p><span class="ar">تنبيهات وتقارير مجدولة حسب قواعدك، فلا يجمعها أحد يدوياً.</span><span class="en">Exceptions and scheduled reports on rules you set, so nobody assembles them by hand.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 FEATURES -->
+<section id="roles">
+  <div class="wrap">
+    <p class="kicker"><span class="ar">المنصة</span><span class="en">The platform</span></p>
+    <h2><span class="ar">منصة واحدة للفندق كله، ولكل قسم شاشته.</span><span class="en">One platform for the whole hotel. A screen for every department.</span></h2>
+    <p class="lead"><span class="ar">الواجهة الأمامية والخلفية على سجل واحد.</span><span class="en">Front of house and back of house on one record.</span></p>
+    <div class="cards c4 feat">
+      <div class="card"><div class="num">1</div><h3><span class="ar">المالك والمدير العام</span><span class="en">Owner and GM</span></h3><ul><li><span class="ar">وضع أمس قبل اجتماع الصباح</span><span class="en">Yesterday's position before the stand up</span></li><li><span class="ar">الإيراد حسب القسم مع الضريبة والرسوم</span><span class="en">Revenue by department, with VAT and fees</span></li><li><span class="ar">قوائم مالية وفق USALI</span><span class="en">USALI statements</span></li><li><span class="ar">الموافقات وسجل التدقيق</span><span class="en">Approvals and audit log</span></li><li><span class="ar">كل الفنادق في لوحة واحدة</span><span class="en">Portfolio view across properties</span></li></ul></div>
+      <div class="card"><div class="num">2</div><h3><span class="ar">المكاتب الأمامية</span><span class="en">Front Office</span></h3><ul><li><span class="ar">الإشغال ومتوسط السعر والإيراد لكل غرفة</span><span class="en">Occupancy, ADR and RevPAR on one page</span></li><li><span class="ar">حالة الغرف مباشرة: متاحة، خارج الخدمة، المتبقي للبيع</span><span class="en">Live room status: saleable, out of order, left to sell</span></li><li><span class="ar">ملف موحد لكل ضيف: الإقامات والإنفاق والتفضيلات</span><span class="en">Guest 360: stays, spend and preferences in one profile</span></li><li><span class="ar">أرقام تطابق تقرير نظام الفندق اليومي</span><span class="en">Figures that match your PMS daily report</span></li></ul></div>
+      <div class="card"><div class="num">3</div><h3><span class="ar">الإشراف الداخلي</span><span class="en">Housekeeping</span></h3><ul><li><span class="ar">خريطة الأدوار مباشرة</span><span class="en">Live floor map</span></li><li><span class="ar">قائمة المهام وحالة التنظيف والفحص</span><span class="en">Task queue with cleaning and inspection status</span></li><li><span class="ar">مغادرات الغد والطاقم المطلوب</span><span class="en">Tomorrow's turnovers and the staff to cover them</span></li></ul></div>
+      <div class="card"><div class="num">4</div><h3><span class="ar">الصيانة</span><span class="en">Engineering</span></h3><ul><li><span class="ar">البلاغات حسب الأولوية</span><span class="en">Tickets by priority</span></li><li><span class="ar">القياس مقابل وقت الاستجابة المستهدف</span><span class="en">Measured against response targets</span></li><li><span class="ar">تنبيه عند تجاوز الوقت</span><span class="en">A breached ticket says so</span></li></ul></div>
+      <div class="card"><div class="num">5</div><h3><span class="ar">الأغذية والمشروبات</span><span class="en">Food and Beverage</span></h3><ul><li><span class="ar">إيراد كل منفذ يومياً</span><span class="en">Outlet revenue by day</span></li><li><span class="ar">عدد الضيوف ومتوسط الفاتورة</span><span class="en">Covers and average check</span></li><li><span class="ar">نسبة تكلفة الأغذية إلى الإيراد</span><span class="en">F&amp;B cost % against revenue</span></li></ul></div>
+      <div class="card"><div class="num">6</div><h3><span class="ar">الإيرادات</span><span class="en">Revenue</span></h3><ul><li><span class="ar">توقعات الإيراد لـ 90&nbsp;يوماً</span><span class="en">90 day revenue forecast</span></li><li><span class="ar">وتيرة الحجوزات وتوزيع الشرائح</span><span class="en">Pickup pace and segment mix</span></li><li><span class="ar">المجموعة المنافسة ومؤشرات السوق MPI و ARI و RGI</span><span class="en">Competitive set and MPI, ARI, RGI indices</span></li><li><span class="ar">سعر مقترح لكل نوع غرفة مع أسبابه، تقبله أو ترفضه</span><span class="en">A suggested rate per room type with reasons. You apply or reject</span></li></ul></div>
+      <div class="card"><div class="num">7</div><h3><span class="ar">المالية</span><span class="en">Finance</span></h3><ul><li><span class="ar">مطابقة الإيراد يومياً بين الأقسام</span><span class="en">Revenue reconciled daily across outlets</span></li><li><span class="ar">ضوابط التدقيق الليلي تحدد الفرق وصاحبه</span><span class="en">Night audit controls that name what did not balance and who owns it</span></li><li><span class="ar">إقفال الشهر في ست خطوات</span><span class="en">Month end close as a six step checklist</span></li><li><span class="ar">تصدير Excel: الأرباح والخسائر، ميزان المراجعة، أعمار الذمم، الضريبة</span><span class="en">Excel export: P&amp;L, trial balance, aging and VAT</span></li></ul></div>
+      <div class="card"><div class="num">8</div><h3><span class="ar">الموظفون والمشتريات والمخزون</span><span class="en">People, purchasing and stock</span></h3><ul><li><span class="ar">دليل الموظفين وجداول العمل بالتقويم الهجري</span><span class="en">Staff directory and schedules on the Hijri calendar</span></li><li><span class="ar">تنبيه بالشهادات قرب انتهائها</span><span class="en">Expiring certifications flagged</span></li><li><span class="ar">طلبات وأوامر الشراء وحالتها</span><span class="en">Purchase requests and orders with their status</span></li><li><span class="ar">المخزون الحرج</span><span class="en">Critical stock levels</span></li></ul></div>
+    </div>
+
+    <h3 class="subhead"><span class="ar">الذكاء داخل المنصة</span><span class="en">Where the intelligence sits</span></h3>
+    <div class="cards c4">
+      <div class="card hi"><h3><span class="ar">المدقق الليلي</span><span class="en">Night auditor</span></h3><p><span class="ar">يثبت أن اليوم متوازن بسبعة ضوابط مستقلة، ويحدد البند المختلف وصاحبه.</span><span class="en">Proves the day balances with seven independent controls and names the failing leg and its owner.</span></p></div>
+      <div class="card hi"><h3><span class="ar">مدير الإيرادات</span><span class="en">Revenue manager</span></h3><p><span class="ar">توقعات متجددة لـ 90&nbsp;يوماً وسعر مقترح لكل ليلة من ست إشارات، مع ذكر الأسباب.</span><span class="en">A rolling 90 day forecast and a nightly rate suggestion from six weighted signals, with the reasons listed.</span></p></div>
+      <div class="card hi"><h3><span class="ar">إحاطة الصباح</span><span class="en">Morning briefing</span></h3><p><span class="ar">ما تحتاجه الوردية: التسليمات، كبار الضيوف، الشهادات المنتهية والمخزون الحرج.</span><span class="en">What the shift needs: handover items, VIP arrivals, expiring certifications and critical stock.</span></p></div>
+      <div class="card hi"><h3><span class="ar">الاستثناءات والتنبيهات</span><span class="en">Exceptions and alerts</span></h3><p><span class="ar">يرصد الأرقام الشاذة حيث تظهر: شهر خارج النطاق، شريحة خارج الحد، بلاغ تجاوز وقته.</span><span class="en">Outliers flagged where they arise: a month far above the median, a segment out of tolerance, a ticket past its target.</span></p></div>
+    </div>
+    <p class="fine"><span class="ar">وكلاء ذكاء إضافيون قادمون على مراحل. كل مخرج يوضح سببه ومصدره.</span><span class="en">Further AI agents are coming in phases. Every output shows its reason and its source.</span></p>
+
+    <div class="chips"><span><span class="ar">قراءة فقط من أنظمتك</span><span class="en">Read only connectors</span></span><span><span class="ar">عربي وإنجليزي</span><span class="en">Arabic and English</span></span><span><span class="ar">البيانات داخل المملكة</span><span class="en">Data held in the Kingdom</span></span><span><span class="ar">صلاحيات حسب الدور</span><span class="en">Role based access</span></span><span><span class="ar">تقارير مجدولة</span><span class="en">Scheduled reports</span></span><span><span class="ar">تصدير إلى Excel</span><span class="en">Export to Excel</span></span><span><span class="ar">تعريف واحد لكل مؤشر</span><span class="en">One definition of every metric</span></span><span><span class="ar">لا شيء يُنفّذ دون موافقة</span><span class="en">Nothing acts without approval</span></span></div>
+  </div>
+</section>
+
+<!-- 5 INTELLIGENCE + 6 SAUDI -->
+<section class="dark">
+  <div class="wrap split">
+    <div>
+      <p class="kicker"><span class="ar">الذكاء</span><span class="en">Intelligence</span></p>
+      <h2><span class="ar">ذكاء يشرح أرقام فندقك، والقرار لك.</span><span class="en">Intelligence that explains your numbers. The decision stays yours.</span></h2>
+      <p class="lead">
+        <span class="ar">اسأل لماذا تغيّر الإيراد، ويجيبك ضياف بلغة واضحة مع المصدر والتاريخ. لا يُنشر سعر ولا يُسجّل قيد ولا تُرسل رسالة لضيف إلا بموافقة مسؤول.</span>
+        <span class="en">Ask why revenue moved and Dhiyaf answers in plain language, with the source and the dates. Nothing publishes a rate, posts an entry or messages a guest without a person deciding.</span>
+      </p>
+    </div>
+    <div class="card">
+      <p class="kicker"><span class="ar">صُنع في المملكة</span><span class="en">Built in Saudi Arabia</span></p>
+      <h3><span class="ar">مبني هنا، لفنادقنا.</span><span class="en">Built here, for hotels here.</span></h3>
+      <p>
+        <span class="ar">عربي وإنجليزي من أول سطر، لا ترجمة أُضيفت في النهاية. التقويم الهجري حيث يحتاجه فريقك. بياناتك محفوظة داخل المملكة، وتُصدّر أو تُحذف متى طلبت.</span>
+        <span class="en">Arabic and English from the first line, not a translation added at the end. Hijri calendar where your team needs it. Your data is held in the Kingdom, and exported or deleted on your request.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 PILOT -->
+<section id="pilot">
+  <div class="wrap">
+    <p class="kicker"><span class="ar">التجربة</span><span class="en">The pilot</span></p>
+    <h2><span class="ar">نفضّل أن نريك أرقامك أنت، لا أرقام غيرك.</span><span class="en">We would rather show you your own numbers than somebody else's.</span></h2>
+    <p class="lead">
+      <span class="ar">أول فندق بدأ معنا في سبتمبر&nbsp;2026. نسجّل خط أساس في الأسبوع الأول، ونقيس عليه في الأسبوع الثاني عشر، وسننشر ما نجده. والآن نفتح مجموعة تأسيسية من 10&nbsp;فنادق في الرياض.</span>
+      <span class="en">Our first hotel went live in September 2026. We record a baseline in week one, report against it in week twelve, and will publish what we find. We are now opening a founding group of ten properties in Riyadh.</span>
+    </p>
+    <div class="steps">
+      <div><b><span class="ar">الأسبوع 1</span><span class="en">Week 1</span></b><span><span class="ar">الربط وخط الأساس</span><span class="en">Connect and baseline</span></span></div>
+      <div><b><span class="ar">الأسبوع 2</span><span class="en">Week 2</span></b><span><span class="ar">الإعداد والتعريفات</span><span class="en">Configure and define</span></span></div>
+      <div><b><span class="ar">الأسبوع 3</span><span class="en">Week 3</span></b><span><span class="ar">التدريب والتشغيل بالتوازي</span><span class="en">Train, run in parallel</span></span></div>
+      <div><b><span class="ar">الأسبوع 4 وما بعده</span><span class="en">Week 4 onward</span></b><span><span class="ar">تشغيل ومراجعة أسبوعية</span><span class="en">Live, with weekly reviews</span></span></div>
+    </div>
+    <p style="margin-top:34px"><a class="btn dark" href="#contact"><span class="ar">انضم للمجموعة التأسيسية في الرياض</span><span class="en">Join the Riyadh founding group</span></a></p>
+  </div>
+</section>
+
+<!-- 8 PRICING -->
+<section class="band" id="pricing">
+  <div class="wrap">
+    <p class="kicker"><span class="ar">الأسعار</span><span class="en">Pricing</span></p>
+    <h2><span class="ar">اشتراك حسب حجم الفندق، وكل شيء واضح من البداية.</span><span class="en">Priced by property size. Nothing hidden underneath.</span></h2>
+    <div class="cards c4">
+      <div class="card">
+        <div class="tag"><span class="ar">أساسي</span><span class="en">ESSENTIAL</span></div>
+        <div class="per"><span class="ar">حتى 50&nbsp;غرفة</span><span class="en">Up to 50 rooms</span></div>
+        <div class="price">450</div><div class="per"><span class="ar">ريال شهرياً</span><span class="en">SAR a month</span></div>
+        <ul><li><span class="ar">لوحة الأداء اليومية</span><span class="en">Daily dashboard</span></li><li><span class="ar">التقارير التشغيلية والمالية</span><span class="en">Operating and financial reports</span></li><li><span class="ar">عربي وإنجليزي</span><span class="en">Arabic and English</span></li></ul>
+      </div>
+      <div class="card hi">
+        <div class="tag"><span class="ar">احترافي</span><span class="en">PROFESSIONAL</span></div>
+        <div class="per"><span class="ar">من 51 إلى 150&nbsp;غرفة</span><span class="en">51 to 150 rooms</span></div>
+        <div class="price">1,400</div><div class="per"><span class="ar">ريال شهرياً</span><span class="en">SAR a month</span></div>
+        <ul><li><span class="ar">كل ما في الأساسي</span><span class="en">Everything in Essential</span></li><li><span class="ar">المطابقة وتنبيهات الفروقات</span><span class="en">Reconciliation and variance alerts</span></li><li><span class="ar">التوقعات والتقارير المجدولة</span><span class="en">Forecasting and scheduled reports</span></li></ul>
+      </div>
+      <div class="card">
+        <div class="tag"><span class="ar">احترافي بلس</span><span class="en">PROFESSIONAL PLUS</span></div>
+        <div class="per"><span class="ar">من 151 إلى 300&nbsp;غرفة</span><span class="en">151 to 300 rooms</span></div>
+        <div class="price">2,200</div><div class="per"><span class="ar">ريال شهرياً</span><span class="en">SAR a month</span></div>
+        <ul><li><span class="ar">كل ما في الاحترافي</span><span class="en">Everything in Professional</span></li><li><span class="ar">توحيد مالي لعدة منافذ</span><span class="en">Multi outlet consolidation</span></li><li><span class="ar">مسؤول نجاح مخصص</span><span class="en">Named success contact</span></li></ul>
+      </div>
+      <div class="card">
+        <div class="tag"><span class="ar">المجموعات</span><span class="en">GROUP</span></div>
+        <div class="per"><span class="ar">3&nbsp;فنادق فأكثر</span><span class="en">Three or more properties</span></div>
+        <div class="price" style="font-size:30px;margin:22px 0 14px"><span class="ar">حسب الطلب</span><span class="en">On request</span></div><div class="per">&nbsp;</div>
+        <ul><li><span class="ar">كل فنادقك في لوحة واحدة</span><span class="en">All properties in one view</span></li><li><span class="ar">تهيئة في الموقع</span><span class="en">On site onboarding</span></li><li><span class="ar">تقارير مخصصة</span><span class="en">Custom reports</span></li></ul>
+      </div>
+    </div>
+    <p class="fine"><span class="ar">الاشتراك السنوي يشمل شهرين مجاناً. الأسعار لا تشمل ضريبة القيمة المضافة.</span><span class="en">Annual plans include two months free. Prices exclude VAT.</span></p>
+  </div>
+</section>
+
+<!-- 9 FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <p class="kicker"><span class="ar">الأسئلة الشائعة</span><span class="en">Questions</span></p>
+    <h2><span class="ar">قبل أن تسأل</span><span class="en">Before you ask</span></h2>
+    <details open><summary><span class="ar">هل يستبدل ضياف نظام الفندق؟</span><span class="en">Will this replace my PMS?</span></summary><p><span class="ar">لا. ضياف يقرأ منه فقط، وأنظمتك تبقى كما هي.</span><span class="en">No. Dhiyaf reads from it. Your PMS, POS and accounting stay as they are.</span></p></details>
+    <details><summary><span class="ar">هل يحتاج فريقي إلى إدخال بيانات؟</span><span class="en">Does my team need to enter data?</span></summary><p><span class="ar">لا. ضياف يقرأ ما هو مُدخل في أنظمتك.</span><span class="en">No. Dhiyaf reads what is already keyed into your systems.</span></p></details>
+    <details><summary><span class="ar">ما الأنظمة التي ترتبطون بها؟</span><span class="en">Which systems do you connect to?</span></summary><p><span class="ar">أخبرنا بما تستخدمه ونؤكد لك قبل أي التزام.</span><span class="en">Tell us what you run and we will confirm before you commit to anything.</span></p></details>
+    <details><summary><span class="ar">أين بياناتي؟</span><span class="en">Where is my data?</span></summary><p><span class="ar">داخل المملكة، وتُصدّر أو تُحذف بطلبك.</span><span class="en">Held in the Kingdom. Exported or deleted on your request.</span></p></details>
+    <details><summary><span class="ar">كم يستغرق الإعداد؟</span><span class="en">How long does setup take?</span></summary><p><span class="ar">نستهدف خمسة أيام عمل من تاريخ منح الصلاحية.</span><span class="en">We aim to configure the connector within five working days of access.</span></p></details>
+    <details><summary><span class="ar">هل أستطيع الانسحاب؟</span><span class="en">Can I leave?</span></summary><p><span class="ar">نعم. خلال أول 30&nbsp;يوماً في أي وقت وبدون أي التزام.</span><span class="en">Yes. In the first 30 days, at any point and without penalty.</span></p></details>
+  </div>
+</section>
+
+<!-- 10 FINAL CTA -->
+<section class="dark" id="contact">
+  <div class="wrap split">
+    <div>
+      <p class="kicker"><span class="ar">ابدأ</span><span class="en">Start</span></p>
+      <h2><span class="ar">بكرة الساعة&nbsp;7:00، الجواب عندك.</span><span class="en">Tomorrow at 7:00, know.</span></h2>
+      <p class="lead">
+        <span class="ar">20&nbsp;دقيقة مع أحد المؤسسين. أحضر تقرير يوم واحد، ونريك اليوم نفسه في ضياف.</span>
+        <span class="en">Twenty minutes with a founder. Bring one day's report and we will show you the same day in Dhiyaf.</span>
+      </p>
+    </div>
+    <form id="lead">
+      <input name="name" required data-ar="الاسم" data-en="Name">
+      <input name="hotel" required data-ar="الفندق أو المجموعة" data-en="Hotel or group">
+      <input name="count" inputmode="numeric" data-ar="عدد الفنادق" data-en="Number of properties">
+      <input name="mobile" required inputmode="tel" data-ar="رقم الجوال" data-en="Mobile number">
+      <button class="btn primary" type="submit"><span class="ar">احجز العرض عبر واتساب</span><span class="en">Book my walk through on WhatsApp</span></button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Dhiyaf ضياف · <span class="ar">ذكاء الضيافة</span><span class="en">The intelligence of hospitality</span></span>
+    <a id="mail" href="#"></a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var html = document.documentElement, btn = document.getElementById("langBtn");
+  function setLang(l) {
+    html.lang = l; html.dir = l === "ar" ? "rtl" : "ltr";
+    btn.textContent = l === "ar" ? "English" : "العربية";
+    document.title = l === "ar" ? "ضياف | ذكاء الضيافة" : "Dhiyaf | The intelligence of hospitality";
+    document.querySelectorAll("[data-ar]").forEach(function (el) { el.placeholder = el.getAttribute("data-" + l); });
+    try { localStorage.setItem("lang", l); } catch (e) {}
+  }
+  var saved = null; try { saved = localStorage.getItem("lang"); } catch (e) {}
+  setLang(saved === "en" ? "en" : "ar");
+  btn.addEventListener("click", function () { setLang(html.lang === "ar" ? "en" : "ar"); });
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  var m = document.getElementById("mail"); m.textContent = CONFIG.EMAIL; m.href = "mailto:" + CONFIG.EMAIL;
+
+  document.getElementById("lead").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = e.target, ar = html.lang === "ar";
+    var text = ar
+      ? "السلام عليكم، أرغب في عرض ضياف.\nالاسم: " + f.name.value + "\nالفندق: " + f.hotel.value + "\nعدد الفنادق: " + (f.count.value || "1") + "\nالجوال: " + f.mobile.value
+      : "Hello, I would like a Dhiyaf walk through.\nName: " + f.name.value + "\nHotel: " + f.hotel.value + "\nProperties: " + (f.count.value || "1") + "\nMobile: " + f.mobile.value;
+    window.open("https://wa.me/" + CONFIG.WHATSAPP + "?text=" + encodeURIComponent(text), "_blank");
+  });
+})();
+</script>
+</body>
+</html>
